@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# Quiz App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Information
 
-## Get started
+- Name: Dawit Yohans
+- ID: UGR/4173/16
+- Section: B
 
-1. Install dependencies
+## Project Description
 
-   ```bash
-   npm install
-   ```
+This mobile quiz application allows users to choose a category and answer timed multiple-choice questions. The app tracks the score, gives instant visual feedback for correct and wrong answers, and shows a final performance summary at the end of each quiz.
 
-2. Start the app
+## App Functionality
 
-   ```bash
-   npx expo start
-   ```
+1. Category Selection
+   - The home screen shows quiz categories: Technology, Science, History, and Math.
+   - Users start a quiz by selecting one category card.
 
-In the output, you'll find options to open the app in a
+2. Timed Quiz Flow
+   - Each quiz question has four options and a 15-second timer.
+   - Users choose one option and press "Lock In Answer".
+   - If time runs out, the question is treated as unanswered and the app proceeds automatically.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+3. Instant Feedback
+   - Correct answers are highlighted in green.
+   - Wrong selections or timeouts are highlighted in red.
+   - A progress bar and question counter show quiz progress.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+4. Result Summary
+   - After the final question, the app navigates to a results screen.
+   - It calculates score percentage and displays a feedback message based on performance.
+   - Users can return to the home screen to attempt another category.
 
-## Get a fresh project
+## UI Construction and Visual Style
 
-When you're ready, run:
+- Built with React Native + Expo Router using file-based navigation.
+- The design uses a card-based layout with rounded corners, soft shadows, and clear spacing.
+- A gradient hero section is used on key screens to create visual emphasis.
+- Iconography from Ionicons helps identify categories and actions.
+- The quiz screen includes a progress bar, timer badge, and interactive answer buttons for clear flow.
+- A theme context controls colors for consistency and supports light/dark styling behavior.
+- The result screen uses a circular progress indicator, score cards, and a primary action button for intuitive navigation.
 
-```bash
-npm run reset-project
-```
+## Published Build
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The application has been published on Expo.
 
-## Learn more
+If you want to test the complete app experience,You can download and run the latest build from this link:
 
-To learn more about developing your project with Expo, look at the following resources:
+https://expo.dev/accounts/dawityo/projects/Quiz-App/builds/aba37770-d880-4ab2-a1c1-79c4843edda4
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This published version includes the full quiz flow, timer behavior, answer feedback states, and the final score/result interface.

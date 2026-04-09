@@ -7,6 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
+// Displays a reusable top header with branding, subtitle, and theme toggle control.
 export default function Header({
     title = 'Quiz-App',
     subtitle = 'Test Your Knowledge',
@@ -50,6 +51,7 @@ export default function Header({
                 </View>
 
                 <Pressable style={styles.toggleBtn} onPress={toggleTheme}>
+                    {/* One-tap light/dark switch for better readability in different environments. */}
                     <Ionicons name={isDark ? 'sunny-outline' : 'moon-outline'} size={18} color={colors.text} />
                 </Pressable>
             </View>
@@ -64,6 +66,7 @@ export default function Header({
     );
 }
 
+// Builds style objects for the header based on active color palette and theme mode.
 const createStyles = (colors, isDark) => StyleSheet.create({
     container: {
         backgroundColor: colors.surface,
@@ -117,6 +120,7 @@ const createStyles = (colors, isDark) => StyleSheet.create({
     },
     textContainer: {
         alignItems: 'flex-start',
+        // Prevent text overlap with the toggle button on smaller screens.
         maxWidth: screenWidth * 0.65,
     },
     badge: {

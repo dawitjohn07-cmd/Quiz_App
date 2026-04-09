@@ -1,3 +1,4 @@
+// Question bank keyed by category id used in quiz route params.
 const QUESTIONS = {
     '1': [ // Technology
         {

@@ -32,8 +32,10 @@ export const DARK_COLORS = {
     white: '#FFFFFF',
 };
 
+// Backward-compatible alias; theme context selects between LIGHT_COLORS and DARK_COLORS.
 export const COLORS = LIGHT_COLORS;
 
+// Shared spacing scale used across screens for consistent layout rhythm.
 export const SPACING = {
     s: 8,
     m: 16,
@@ -41,6 +43,7 @@ export const SPACING = {
     xl: 32,
 };
 
+// Shared corner radius scale for cards, chips, and pill controls.
 export const RADII = {
     s: 10,
     m: 16,

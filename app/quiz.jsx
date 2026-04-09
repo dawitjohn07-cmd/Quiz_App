@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, Pressable, SafeAreaView, ScrollView } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SPACING, RADII } from '../constants/theme';
 import Header from './components/Header'
 import QUESTIONS from './data/Questions'
 
 import { useTheme } from './context/ThemeContext';
 
+// Category metadata drives badge label/icon/color without duplicating question data.
 const CATEGORY_META = {
     '1': { label: 'Technology', icon: 'hardware-chip-outline', color: '#0F766E' },
     '2': { label: 'Science', icon: 'flask-outline', color: '#2563EB' },
@@ -15,11 +17,15 @@ const CATEGORY_META = {
     '4': { label: 'Math', icon: 'calculator-outline', color: '#C2410C' },
 };
 
+// Runs the quiz flow: question rendering, answer handling, timing, and navigation to results.
 export default function QuizScreen() {
     const { category } = useLocalSearchParams();
     const router = useRouter();
+    const insets = useSafeAreaInsets();
     const { colors } = useTheme();
     const styles = useMemo(() => createStyles(colors), [colors]);
+    // Keep the action button clear of gesture bars/home indicators.
+    const buttonBottomOffset = Math.max(insets.bottom + 14, 28);
     const categoryId = Array.isArray(category) ? category[0] : category;
     const categoryInfo = CATEGORY_META[categoryId] || { label: 'Quiz', icon: 'sparkles-outline', color: colors.primary };
     const categoryQuestions = useMemo(() => QUESTIONS[categoryId] || [], [categoryId]);
@@ -33,10 +39,12 @@ export default function QuizScreen() {
     const [feedbackSelected, setFeedbackSelected] = useState(null);
 
     useEffect(() => {
+        // Global question countdown; value is reset when moving to next question.
         const timer = setInterval(() => setTimeLeft(prev => prev > 0 ? prev - 1 : 0), 1000);
         return () => clearInterval(timer);
     }, []);
 
+    // Locks the current question, shows feedback state, then advances or finishes quiz.
     const startFeedback = useCallback((answerIndex, timeout = false) => {
         const correctIndex = categoryQuestions[currentIndex].correct;
         setFeedbackCorrect(correctIndex);
@@ -47,6 +55,7 @@ export default function QuizScreen() {
         const isCorrect = !timeout && answerIndex === correctIndex;
         const nextScore = isCorrect ? score + 1 : score;
 
+        // Show feedback state briefly before transitioning to next question/results.
         setTimeout(() => {
             if (currentIndex < categoryQuestions.length - 1) {
                 setCurrentIndex(currentIndex + 1);
@@ -67,11 +76,13 @@ export default function QuizScreen() {
     }, [categoryQuestions, currentIndex, router, score]);
 
     useEffect(() => {
+        // Auto-submit as timeout when the user does not answer in time.
         if (timeLeft === 0 && !showFeedback) {
             startFeedback(null, true);
         }
     }, [timeLeft, showFeedback, startFeedback]);
 
+    // Submits the currently selected answer when feedback mode is not active.
     const handleNext = () => {
         if (selectedAnswer !== null && !showFeedback) {
             startFeedback(selectedAnswer, false);
@@ -129,6 +140,7 @@ export default function QuizScreen() {
                             let indexStyle = [styles.optionIndex];
                             let state = 'default';
 
+                            // Derive option visual state from feedback/selection workflow.
                             if (showFeedback) {
                                 if (index === feedbackCorrect) {
                                     state = 'correct';
@@ -174,7 +186,11 @@ export default function QuizScreen() {
                     </View>
                 </ScrollView>
 
-                <Pressable style={[styles.nextBtn, showFeedback && styles.disabledBtn]} onPress={handleNext} disabled={showFeedback}>
+                <Pressable
+                    style={[styles.nextBtn, { marginBottom: buttonBottomOffset }, showFeedback && styles.disabledBtn]}
+                    onPress={handleNext}
+                    disabled={showFeedback}
+                >
                     <Text style={styles.nextBtnText}>{showFeedback ? 'Checking answer...' : 'Lock In Answer'}</Text>
                     <Ionicons name="arrow-forward" size={18} color={colors.white} />
                 </Pressable>
@@ -183,11 +199,12 @@ export default function QuizScreen() {
     );
 }
 
+// Generates styles for quiz layout, option states, and action controls.
 const createStyles = (colors) => StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background },
     contentWrap: { flex: 1 },
     scrollArea: { flex: 1 },
-    scrollContent: { padding: SPACING.l, paddingBottom: SPACING.s },
+    scrollContent: { padding: SPACING.l, paddingBottom: SPACING.m },
     topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.m, marginTop: SPACING.s },
     categoryBadge: {
         flexDirection: 'row',
@@ -243,7 +260,7 @@ const createStyles = (colors) => StyleSheet.create({
         letterSpacing: 0.7,
         marginBottom: 8,
     },
-    questionText: { color: colors.text, fontSize: 21, fontWeight: '800', lineHeight: 30 },
+    questionText: { color: colors.text, fontSize: 20, fontWeight: '800', lineHeight: 28 },
     optionsContainer: { gap: SPACING.m, marginBottom: SPACING.m },
     optionBtn: {
         backgroundColor: colors.surface,
@@ -287,7 +304,7 @@ const createStyles = (colors) => StyleSheet.create({
         gap: 8,
         marginHorizontal: SPACING.l,
         marginTop: 4,
-        marginBottom: 20
+        marginBottom: 0
     },
     disabledBtn: { backgroundColor: colors.textMuted },
     nextBtnText: { color: colors.white, fontSize: 17, fontWeight: '800' },

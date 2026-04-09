@@ -7,9 +7,11 @@ import { SPACING, RADII } from '../constants/theme';
 import Header from './components/Header'
 import { useTheme } from './context/ThemeContext';
 
+// Renders a simplified static result summary screen with a home navigation action.
 export default function ResultScreen() {
     const router = useRouter();
     const { colors } = useTheme();
+    // Memoize styles so object references stay stable between renders.
     const styles = React.useMemo(() => createStyles(colors), [colors]);
 
     return (
@@ -37,6 +39,7 @@ export default function ResultScreen() {
     );
 }
 
+// Creates the style sheet for the static result screen using active theme colors.
 const createStyles = (colors) => StyleSheet.create({
     container: { flex: 1, backgroundColor: colors.background, alignItems: 'center', padding: SPACING.l },
     heroCard: {

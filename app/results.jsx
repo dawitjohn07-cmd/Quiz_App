@@ -7,17 +7,20 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { SPACING, RADII } from '../constants/theme';
 import { useTheme } from './context/ThemeContext';
 
+// Displays final quiz performance with score visualization and retry navigation.
 export default function ResultsScreen() {
     const { score, total } = useLocalSearchParams();
     const router = useRouter();
     const { colors } = useTheme();
     const styles = React.useMemo(() => createStyles(colors), [colors]);
+    // Normalize router params (string or string[]) before numeric calculations.
     const scoreStr = Array.isArray(score) ? score[0] : score;
     const totalStr = Array.isArray(total) ? total[0] : total;
     const scoreNum = Number.parseInt(scoreStr || '0', 10) || 0;
     const totalNum = Number.parseInt(totalStr || '0', 10) || 0;
     const percentage = totalNum > 0 ? Math.round((scoreNum / totalNum) * 100) : 0;
 
+    // Maps numeric score to a user-friendly performance message.
     const getMessage = () => {
         if (percentage >= 85) return 'Outstanding performance';
         if (percentage >= 65) return 'Strong result';
@@ -25,6 +28,7 @@ export default function ResultsScreen() {
         return 'Keep practicing and retry';
     };
 
+    // Ring color acts as a quick visual indicator of performance band.
     const ringColor = percentage >= 80 ? colors.success : percentage >= 60 ? colors.secondary : colors.accent;
 
     return (
@@ -87,6 +91,7 @@ export default function ResultsScreen() {
     );
 }
 
+// Builds the results screen styles from shared spacing/radius tokens and active colors.
 const createStyles = (colors) => StyleSheet.create({
     container: {
         flex: 1,

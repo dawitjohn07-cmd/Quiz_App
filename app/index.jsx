@@ -7,6 +7,7 @@ import { SPACING, RADII } from '../constants/theme';
 import Header from './components/Header';
 import { useTheme } from './context/ThemeContext';
 
+// Static category metadata used to build home cards and route into quiz mode.
 const CATEGORIES = [
   { id: '1', title: 'Technology', icon: 'hardware-chip-outline', color: '#0F766E', eta: '3 mins' },
   { id: '2', title: 'Science', icon: 'flask-outline', color: '#2563EB', eta: '3 mins' },
@@ -14,13 +15,16 @@ const CATEGORIES = [
   { id: '4', title: 'Math', icon: 'calculator-outline', color: '#C2410C', eta: '3 mins' },
 ];
 
+// Renders the landing screen with category cards and quick quiz overview stats.
 export default function HomeScreen() {
   const router = useRouter();
   const { height } = useWindowDimensions();
   const { colors, isDark } = useTheme();
+  // Reduce hero footprint on shorter devices to keep list content visible.
   const isCompactHero = height < 760;
   const styles = createStyles(colors, isDark);
 
+  // Renders a tappable category card and routes into the selected quiz category.
   const renderCategory = ({ item }) => (
     <Pressable
       style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
@@ -86,6 +90,7 @@ export default function HomeScreen() {
   );
 }
 
+// Produces home screen styles using shared tokens and current theme colors.
 const createStyles = (colors, isDark) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   list: { padding: SPACING.l, paddingBottom: SPACING.xl },
