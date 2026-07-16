@@ -36,6 +36,9 @@ A mobile quiz application built with React Native and Expo that allows users to 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/4dfe873b60644eb1475f410cd0f6ec1bf0f33b12/photo_2026-07-16_21-00-30.jpg" width="250" alt="Quiz App Home Screen"/>
   <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/4dfe873b60644eb1475f410cd0f6ec1bf0f33b12/photo_2026-07-16_21-00-27.jpg" width="250" alt="Quiz App Category Selection Screen"/>
+</p>
+
+<p align="center">
   <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/5732daad866dd041a0cb46d3e348d505b19a9f58/photo_2026-07-16_21-00-33.jpg" width="250" alt="Quiz App Question Screen"/>
   <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/5732daad866dd041a0cb46d3e348d505b19a9f58/photo_2026-07-16_21-00-23.jpg" width="250" alt="Quiz App Result Screen"/>
 </p>
