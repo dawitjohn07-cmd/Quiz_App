@@ -29,3 +29,11 @@ A mobile quiz application built with React Native and Expo that allows users to 
 - JavaScript
 - Ionicons
 - Context API
+
+  
+## Screenshots
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/5732daad866dd041a0cb46d3e348d505b19a9f58/photo_2026-07-16_21-00-33.jpg" width="250" alt="Quiz App Home Screen"/>
+  <img src="https://raw.githubusercontent.com/dawitjohn07-cmd/Quiz_App/5732daad866dd041a0cb46d3e348d505b19a9f58/photo_2026-07-16_21-00-23.jpg" width="250" alt="Quiz App Quiz Screen"/>
+</p>
